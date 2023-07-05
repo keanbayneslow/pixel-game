@@ -1,7 +1,26 @@
+import { useEffect, useState } from "react";
+import Sprite from "./components/object-graphics/Sprite";
+import { SPRITE_SHEET_SRC } from "./helpers/const";
+
 function App() {
+  const [spriteSheetImage, setSpriteSheetImage] = useState(null);
+
+  useEffect(() => {
+    const image = new Image();
+    image.src = SPRITE_SHEET_SRC;
+    image.onload = () => {
+      setSpriteSheetImage(image);
+    };
+  }, []);
+
+  if (!spriteSheetImage) {
+    return null;
+  }
+
+
   return (
     <div>
-      <p>Pixel Game</p>
+      <Sprite image={spriteSheetImage} frameCoord={"1x0"} />
     </div>
   );
 }
